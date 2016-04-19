@@ -1,0 +1,86 @@
+{% extends "headerleft.html" %}
+
+{% block nodeinfoactive %}active{% endblock %}
+
+{% block mainbodynav %}
+    <li>Node</li>
+    <li>Device</li>
+    <li><class="active">display</a></li>
+{% endblock %}
+
+{% block mainbody %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="module panel panel-default accordion">
+                <div class="panel-heading">
+                    <div class="accordion" id="accordion-1">
+                        <div class="accordion-group">
+                            <div><strong>端口表</strong>
+                                <a class="pull-right"  data-parent="#port" data-toggle="collapse" href="#port">
+                                    <button type="button" class="btn btn-default btn-xs">
+                                        <span class="glyphicon glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-body collapse" id="port" style="height: 0px;">
+                    <div class="panel-body tags">
+                        <table class="table table-bordered table-striped table-hover  ">
+                            <thead>
+                                <tr>
+                                    <th>端口名称</th>
+                                    <th>端口状态</th>
+                                    <th>端口描述</th>
+                                    <th>端口IP</th>
+                                    <th>端口OID</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for device in device_all %}
+                                    <tr>
+                                        <td>{{ device.id }}</a></td>
+                                        <td><a href={% url "device" device.device_name %}>{{ device.device_name }}</a></td>
+                                        <td>{{ device.manu.dtype }}</td>
+                                        <td>{{ device.device_ip }}</td>
+                                        <td>{{ device.device_role }}</td>
+                                        <td><a href="{% url "uplinkflownode" device.node.node_name %}">{{ device.device_uplinkoid }}</a></td>
+                                        <td>{{ device.node.node_name }}</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="module panel panel-default accordion">
+                <div class="panel-heading">
+                    <div class="accordion" id="accordion-1">
+                        <div class="accordion-group">
+                            <div><strong>属性</strong>
+                                <a class="pull-right"  data-parent="#nodentering" data-toggle="collapse" href="#nodentering">
+                                    <button type="button" class="btn btn-default btn-xs">
+                                        <span class="glyphicon glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-body collapse" id="nodentering" style="height: 0px;">
+                    <div class="panel-body tags">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

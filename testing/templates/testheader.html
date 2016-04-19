@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>测试页面</title>
+        <!-- Bootstrap -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% load staticfiles %}
+        <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <link href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+        <link href="http://cdn.bootcss.com/bootstrap-daterangepicker/2.0.14/daterangepicker.css" rel="stylesheet">
+        <style>
+            .jumbotron{
+                background:url(static/img/jumbotron.jpg);
+            }
+        </style>
+        <body>
+        {% block body %}{% endblock %}
+        <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    </body>
+</html>

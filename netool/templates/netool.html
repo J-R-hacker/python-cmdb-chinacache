@@ -1,0 +1,24 @@
+{% extends "headerleft.html" %}
+
+{% load staticfiles %}
+
+{% block netool %}active{% endblock %}
+
+
+{% block mainbody %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="module panel panel-default">
+                <ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
+                    <li><a href="{% url "netcheck" %}" class="am-text-secondary"><span class="am-icon-btn am-icon-user-md"></span><br/>设备验收</a></li>
+                    <li><a href="" class="am-text-success"><span class="am-icon-btn am-icon-file-text"></span><br/>设备信息</a></li>
+                    <li><a href="#" class="am-text-warning"><span class="am-icon-btn am-icon-briefcase"></span><br/>休息</a></li>
+                    <li><a href="#" class="am-text-danger"><span class="am-icon-btn am-icon-recycle"></span><br/>休息一下</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% block tool %}{% endblock %}
+{% endblock %}

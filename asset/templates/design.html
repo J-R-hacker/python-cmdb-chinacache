@@ -1,0 +1,77 @@
+{% extends "asset.html" %}
+
+{% load staticfiles %}
+
+{% block asset %}active{% endblock %}
+
+{% block design %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="module panel panel-default">
+                <div class="panel-heading">建点基本信息</div>
+                <div class="panel-body tags">
+                    <form class="form-inline" id="demand">
+                        <div style="padding-top:10px">
+                            <label>代建节点名称:</label>
+                            <input  type="text" class="form-control" name="nodename" id="nodename" placeholder="名称" style="width:180px"/>
+                        </div>
+                        <div style="padding-top:10px">
+                            <label>代建节点地址:</label>
+                            <input  type="text" class="form-control" name="nodeip" id="nodeip" placeholder="IP地址" style="width:180px"/>
+                        </div>
+                        <div style="padding-top:10px" >
+                            <label>代建节点类型:</label>
+                            <select id="nodetype" name="nodetype" style="width:180px" class="form-control">
+                                <option>大型节点(80G以上)</option>
+                                <option>中型节点(40G以上)</option>
+                                <option>小型节点(40G以下)</option>
+                            </select>
+                        </div>
+                        <div style="padding-top:10px">
+                            <label>核心设备选型:</label>
+                            <select id="cswtype" name="cswtype" style="width:180px" class="form-control">
+                                <option>S6700</option>
+                                <option>CE12800</option>
+                                <option>CE5800</option>
+                                <option>EX3300</option>
+                            </select>
+                            <input  type="text" class="form-control" id="cswnum" placeholder="数量" style="width:60px"/>
+                        </div>
+                        <div class="" style="padding-top:10px" >
+                            <label>接入设备选型:</label>
+                            <select id="aswtype" name="aswtype" style="width:180px" class="form-control">
+                                <option>CE5800</option>
+                                <option>EX3300</option>
+                            </select>
+                        </div>
+                        <div class="" style="padding-top:10px" id="pc">
+                            <label>业务主机数量:</label>
+                            <input  type="text" class="form-control" name="pcnum" id="pcnum" placeholder="数量" style="width:180px"/>
+                            <button type="button" class="btn btn-info btn-xs" data-toggle="popover" data-content="请按照业务分类以空格分别输入业务设备数量"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></button>
+                        </div>
+                        <div class="" style="padding-top:10px" id="pc">
+                            <button class="am-btn am-btn-primary am-btn-sm" type="sumbit" style="padding-top:10px">提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="module panel panel-default">
+                <div class="panel-heading">网络设备配比</div>
+                <div class="panel-body tags">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block jscript %}
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+</script>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<head>
+        <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <link href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+        <link href="http://cdn.bootcss.com/bootstrap-daterangepicker/2.0.14/daterangepicker.css" rel="stylesheet">
+        <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.4.2/css/amazeui.css"/>
+</head>
+
+<body>
+
+<html>
+<head>
+<meta charset="utf-8">
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+	
+function loadXMLDoc()
+{
+	var node = $("h2").text()
+	var url = "{% url 'networkinfo' 'CBN-NJ' %} #mainbody"
+	$("#myDiv").load(url);
+}
+
+
+
+</script>
+</head>
+<body>
+
+
+<div id="myDiv"><h2>CBN-NJ</h2>
+<button type="button" onclick="loadXMLDoc()">通过 AJAX 改变内容</button>
+</div>
+
+
+</body>
+</html>

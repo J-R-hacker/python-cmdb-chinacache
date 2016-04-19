@@ -1,0 +1,54 @@
+{% extends "headerleft.html" %}
+    {% load staticfiles %}
+{% block nodeinfoactive %}active{% endblock %}
+
+{% block mainbodynav %}
+    <li><class="active">Node</a></li>
+    <!--li><a href="#">Device</a></li>
+    <li><a href="#">If</a></li-->
+{% endblock %}
+
+{% block mainbody %}
+<ul class="list-unstyled posts">
+    <li>
+        <h2>蓝汛CDN节点信息<small>点击查看节点设备信息</small></h2>
+        <div class="content">
+        <table class="table table-bordered table-striped table-hover  ">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>节点名称</th>
+                    <th>所在城市</th>
+                    <th>所属区域</th>
+                    <th>网络设备数量</th>
+                    <th>服务器数量</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for node in node_all %}
+                    <tr>
+                        <td>{{ node.id }}</a></td>
+                        <td>{{ node.node_name }}</a></td>
+                        <td>{{ node.city }}</td>
+                        <td>{{ node.area }}</td>
+                        <td><a href="{% url 'networkinfo' node.node_name %}">{{ node.device_set.count }}</td>
+                        <td><a href="#">暂未统计</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </li>
+</ul>
+<ul class="pagination pagination-sm">
+    <li><a href="#">&laquo;</a></li>
+    {% for i in curpage.page_range %}
+        {% ifequal pagenumber i %}
+            <li class="active"><a>{{ pagenumber }}</a></li>
+        {% else %}
+            <li ><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endifequal%}
+    {% endfor %}
+    <li><a href="#">&raquo;</a></li>
+</ul>
+{% endblock %}

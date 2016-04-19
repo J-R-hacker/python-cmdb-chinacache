@@ -1,0 +1,56 @@
+{% extends "headerleft.html" %}
+
+{% block nodeinfoactive %}active{% endblock %}
+
+{% block mainbodynav %}
+    <li><a href='' onclick="javascript:window.history.back();">Node</a></li>
+    <li><class="active">Device</a></li>
+    <!--li><a href="#">If</a></li-->
+{% endblock %}
+
+{% block mainbody %}
+<ul class="list-unstyled posts">
+    <li>
+        <h2>{{nodename}}设备信息</h2>
+        <div class="content">
+        <table class="table table-bordered table-striped table-hover  ">
+            <thead>
+                <tr>
+                    <th>设备ID</th>
+                    <th>设备名称</th>
+                    <th>设备类型</th>
+                    <th>设备IP</th>
+                    <th>设备角色</th>
+                    <th>上联OID</th>
+                    <th>所属节点</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for device in device_all %}
+                    <tr>
+                        <td>{{ device.id }}</a></td>
+                        <td><a href={% url "device" device.device_name %}>{{ device.device_name }}</a></td>
+                        <td>{{ device.manu.dtype }}</td>
+                        <td>{{ device.device_ip }}</td>
+                        <td>{{ device.device_role }}</td>
+                        <td><a href="{% url "uplinkflownode" device.node.node_name %}">{{ device.device_uplinkoid }}</a></td>
+                        <td>{{ device.node.node_name }}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </li>
+</ul>
+<ul class="pagination pagination-sm">
+    <li><a href="?page=1">&laquo;</a></li>
+    {% for i in page_range %}
+        {% ifequal pagenumber i %}
+            <li class="active"><a>{{ pagenumber }}</a></li>
+        {% else %}
+            <li ><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endifequal %}
+    {% endfor %}
+    <li><a href="?page={{ pagemax }}">&raquo;</a></li>
+</ul>
+{% endblock %}

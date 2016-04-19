@@ -1,0 +1,60 @@
+{% extends "headernav.html" %}
+    {% load staticfiles %}
+    {% block headerleft %}
+            <div class="container top40">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="module bottom20">
+                            <div class="input-group">
+                                <input type="text" name="" id="" placeholder="节点名称" class="form-control">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary">搜索</button>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="module">
+                            <div class="list-group">
+                                <a href={% url "uplinkflow" %} class="list-group-item {% block uplinkflow %}{% endblock %}" id="uplinkflow">
+                                    <h4 class="list-group-item-heading">节点上联流量</h4>
+                                    <p class="list-group-item-text">蓝汛CDN节点,从此可查看已登记上联接口的节点总出入流量。不用再为查看每个接口烦恼。</p>
+                                </a>
+                                <a href="#" class="list-group-item" id="">
+                                    <h4 class="list-group-item-heading">更多功能</h4>
+                                    <p class="list-group-item-text">更多功能敬请期待</p>
+                                </a>
+                            </div>
+                        </div>
+        
+                        <div class="module">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item">运维值班表
+                                    <span class="badge">7</span>
+                                </a>
+                            </div>
+                        </div>
+        
+                        <div class="module panel panel-default">
+                            <div class="panel-heading">友情链接</div>
+                            <div class="panel-body tags">
+                                <a href="#" class="label ib label-info">ZIBBIX</a>
+                                <a href="#" class="label ib label-success">ZONNES</a>
+                                <a href="#" class="label ib label-warning">LOG</a>
+                                <a href="#" class="label ib label-danger">PING</a>
+                                <a href="http://oa.chinacache.com" class="label ib label-default">OA</a>
+                                <a href="http://rms.chinacache.com" class="label ib label-primary">RMS</a>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-9">
+                        <ol class="breadcrumb">
+                            {% block mainbodynav  %}{% endblock %}
+                        </ol>
+                        {% block mainbody  %}{% endblock %}
+                    </div>
+                </div>
+             </div>
+{% endblock %}
+
+{% block jscript %}{% endblock %}

@@ -1,0 +1,127 @@
+{% extends "monitorleft.html" %}
+
+{% load staticfiles %}
+
+{% block uplinkflow %}active{% endblock %}
+
+{% block mainbodynav %}
+    <li><a href='' onclick="javascript:window.history.back();">Node</a></li>
+    <li><class="active">Uplink</a></li>
+    <!--li><a href="#">If</a></li-->
+{% endblock %}
+
+{% block mainbody %}
+    {% ifequal imgfile 'None' %}
+    <div class="alert alert-info">
+            <button class="close" type="button" data-dismiss="alert">×</button>
+            <strong>提示!</strong> 该节点出口交换机无上联信息，请补充上联端口信息在尝试查看流量!!
+    </div>
+    {% endifequal %}
+
+    {% ifnotequal imgfile 'None' %}
+
+    <ul class="list-unstyled posts">
+        <li>
+            <h2>{{nodename}}节点上联流量图</h2>
+            <div class="row">
+                <!-- 时间控件-->
+                <div class="col-md-8">
+                    <form class="form-horizontal" action="?" >
+                            <div class="control-group">
+                                <div class="input-prepend input-group">
+                                    <span class="add-on input-group-addon">
+                                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                    </span><!--日历标志-->
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="daterange" style="width: 270px" name="timerange">
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-primary" type="button">确定</button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                    </form>
+                </div>
+                <!-- 流量月结-->
+                <div class="col-md-4">
+                    <a  class="label ib label-default">本月流量使用情况:</a>
+                    <a  class="label ib label-primary">{{ monthflow }}</a>
+                </div>
+            </div>
+            <div class="content">
+                <img src="{% static imgfile %}">
+            </div>
+        </li>
+    </ul>
+    {% endifnotequal %}
+
+    {% ifnotequal imgfile 'None' %}
+    <div class="row">
+        <div class="col-md-7">
+            <div class="module panel panel-default">
+                <div class="panel-heading">节点上联端口信息</div>
+                <div class="panel-body tags">
+                    <a href="#" class="label ib label-default">device name :</a>
+                    <a href="#" class="label ib label-primary">interface name</a><br>
+                    <a href="#" class="label ib label-default">device name :</a>
+                    <a href="#" class="label ib label-primary">interface name</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="module panel panel-default">
+                <div class="panel-heading">设备运行信息</div>
+                <div class="panel-body tags">
+                    <a href="#" class="label label-default">CPU</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endifnotequal %}
+{% endblock %}
+{% block jscript %}
+<script type="text/javascript">
+    $(function() {
+        $('input[id="daterange"]').daterangepicker({
+
+            // startDate: moment().startOf('day'),
+            //endDate: moment(),
+            //minDate: '01/01/2012',    //最小时间
+            maxDate : moment(), //最大时间
+            dateLimit : {
+                days : 100
+            }, //起止时间的最大间隔
+            //showDropdowns : true,
+            showWeekNumbers : true, //是否显示第几周
+            timePicker : true, //是否显示小时和分钟
+            timePickerIncrement : 10, //时间的增量，单位为分钟
+            timePicker12Hour : false, //是否使用12小时制来显示时间
+            //ranges : {
+            //    //'最近1小时': [moment().subtract('hours',1), moment()],
+            //        'Today': [moment(), moment()],
+            //    '昨日': [moment().subtract('days', 1).startOf('day'), moment().subtract('days',endOf('day')],
+            //    '最近7日': [moment().subtract('days', 6), moment()],
+            //    '最近30日': [moment().subtract('days', 29), moment()]
+            //},
+            opens : 'right', //日期选择框的弹出位置
+            buttonClasses : [ 'btn btn-default' ],
+            applyClass : 'btn-small btn-primary blue',
+            cancelClass : 'btn-small',
+            format : 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式
+            separator : ' to ',
+            locale: {
+                format: 'YYYY/MM/DD HH:mm'
+                //applyLabel : '确定',
+                //cancelLabel : '取消',
+                //fromLabel : '起始时间',
+                //toLabel : '结束时间',
+                //customRangeLabel : '自定义',
+                //daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+                //monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+                //        '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+                //firstDay : 1
+            }
+        });
+    });
+</script>
+{% endblock %}

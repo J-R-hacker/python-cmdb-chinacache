@@ -1,0 +1,274 @@
+{% extends "netool.html" %}
+
+{% load staticfiles %}
+
+{% block netcheck %}active{% endblock %}
+
+{% block tool %}
+{%ifequal hit "show" %}
+    <div class="row">
+        <div class="col-md-12">
+                <table class="table table-bordered table-striped table-hover  ">
+                    <thead>
+                        <tr>
+                            <th>检查项</th>
+                            <th>数据</th>
+                            <th>检查结果</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td><strong>检查设备信息</strong></td>
+                        <td>{{ checkresult.hostname }}({{ checkresult.ip }})</td>
+                        <td><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                        <td><strong>PING测试</strong></td>
+                        <td>{{ checkresult.pingcheck }}</td>
+                        <td><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                        <td><strong>SNMP测试</strong></td>
+                        <td>{{ checkresult.snmpcheck }}</td>
+                        <td><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                        <td><strong>登录测试</strong></td>
+                        <td>{{ checkresult.passwordcheck }}</td>
+                        <td><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                        <td><strong>配置名称</strong></td>
+                        <td>{{ checkresult.sysname }}</td>
+                        <td><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                        <td><strong>系统当前时间</strong></td>
+                        <td>{{ checkresult.timecheck }}</td>
+                        <td><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                        <td><strong>生成树状态</strong></td>
+                        <td>{{ checkresult.stpcheck }}</td>
+                        <td><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                        <td><strong>未手动关闭端口</strong></td>
+                        <td><strong>数量：</strong>{{ checkresult.ifADdown|length }} <strong>详情：</strong><button class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#ifADdown" >点我不要太用劲</button></td>
+                        <td><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                        <td><strong>未删除VLAN 1端口</strong></td>
+                        <td><strong>数量：</strong>{{ checkresult.vlanonec|length }} <strong>详情：</strong><button class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#vlanone" >点我不要太用劲</button></td>
+                        <td><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                        <td><strong>未加描述端口</strong></td>
+                        <td><strong>数量：</strong>{{ checkresult.descif|length }} <strong>详情：</strong><button class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#descif" >点我不要太用劲</button></td>
+                        <td><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                        <td><strong>默认路由详情</strong></td>
+                        <td><strong>数量：</strong>{{ checkresult.deroutenum }} <strong>详情：</strong><button class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#deroute" >点我不要太用劲</button></td>
+                        <td><input type="checkbox" name=""></td>
+                    </tr>
+                    <tr>
+                        <td><strong>LLDP互联详情</strong></td>
+                        <td><strong>状态：</strong>{{ checkresult.lldpstatu }} <strong>数量：</strong>{{ checkresult.lldplink|length }} <strong>详情：</strong><button class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#lldplink" >点我不要太用劲</button></td>
+                        <td><input type="checkbox" name=""></td>
+                    </tr> 
+                </table>
+        </div>
+    </div>
+{%endifequal %}
+
+<!--modal vlanone-->
+<div class="modal fade" id="ifADdown" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">未关闭不使用端口</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    {% for link in checkresult.ifADdown %}
+                            <li>{{ link }}</li>
+                    {% empty %}
+                            <li>没有发现未关闭不使用端口</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--modal vlanone-->
+<div class="modal fade" id="vlanone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">未删除vlan1端口</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    {% for link in checkresult.vlanonec %}
+                            <li>{{ link }}</li>
+                    {% empty %}
+                            <li>没有发现端口未删除vlan1</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--modal ifdesc-->
+<div class="modal fade" id="descif" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">未加端口描述</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    {% for link in checkresult.descif %}
+                            <li>{{ link }}</li>
+                    {% empty %}
+                            <li>没有发现端口未加描述</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--modal LLDPlink-->
+<div class="modal fade" id="lldplink" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">LLDP连接详情</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    {% for link in checkresult.lldplink %}
+                            <li>{{ link }}</li>
+                    {% empty %}
+                            <li>没有发现LLDP互联信息</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--modal deroute-->
+<div class="modal fade" id="deroute" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">默认路由连接详情</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    {% for deroute in checkresult.deroute %}
+                            <li>{{ deroute }}</li>
+                    {% empty %}
+                            <li>没有发现路由信息</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="modal-footer">
+                不适用<mark>二层接入</mark>设备
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="height:350px; overflow:auto; border:0px solid #000000;">
+    <div class="col-md-12">
+        {% ifequal device_all "None" %}
+                <div class="row">
+                    <div class="col-md-12">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <strong>提示！</strong> 请在搜索框中输入需要验收的节点或设备名称.
+                    </div>
+                    </div>
+                </div>
+        {% endifequal %}
+        {% ifnotequal device_all "None" %}
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>设备名称</th>
+                        <th>设备IP</th>
+                        <th>用户名</th>
+                        <th>设备验收</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for device in device_all %}
+                        <tr>
+                            <form >
+                                <td>{{ device.device_name }}</a></td>
+                                <td>{{ device.device_ip }}</td>
+                                <td>
+                                    <select class="form-control" style="width:130px;" name="username">
+                                        <option>ccadmin</option>
+                                        <option>xingchen.wang</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="hidden" name="checkdeviceid" value={{ device.id }}>
+                                    <input type="hidden" name="seacrh" value={{ device.node.node_name }}>
+                                    <!--<a class="btn btn-primary btn-xs" href="?checkdeviceid={{ device.id }}&seacrh={{ device.node.node_name }}" role="button">check</a>-->
+                                    <button class="btn btn-primary btn-xs"  data-toggle="modal" type="submit" data-target="#waitfor" >check</button>
+                                </td>
+                            </form>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endifnotequal %}
+    </div>
+</div>
+
+<!--modal check wait-->
+<div class="modal fade" id="waitfor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">奴家已经很卖命了，客官不要着急嘛~~</h4>
+            </div>
+            <div class="modal-body">
+                <img src="{% static 'img/acfun.gif' %}" alt="..." class="img-rounded">
+            </div>
+            <div class="modal-footer">
+                <p>不要点击空白处哦~不然您就见不到奴家了~</p>
+            </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

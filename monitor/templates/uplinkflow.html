@@ -1,0 +1,52 @@
+{% extends "monitorleft.html" %}
+
+{% load staticfiles %}
+
+{% block uplinkflow %}active{% endblock %}
+
+{% block mainbodynav %}
+    <li><class="active">Node</a></li>
+    <!--li><a href="#">Device</a></li>
+    <li><a href="#">If</a></li-->
+{% endblock %}
+
+{% block mainbody %}
+<ul class="list-unstyled posts">
+    <li>
+        <h2>蓝汛CDN节点信息<small>点击查看节点上联流量</small></h2>
+        <div class="content">
+        <table class="table table-bordered table-striped table-hover  ">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>节点名称</th>
+                    <th>所在城市</th>
+                    <th>所属区域</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for node in node_all %}
+                    <tr>
+                        <td>{{ node.id }}</a></td>
+                        <td><a href="uplinkflow/{{ node.node_name }}">{{ node.node_name }}</a></td>
+                        <td>{{ node.city }}</td>
+                        <td>{{ node.area }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </li>
+</ul>
+<ul class="pagination pagination-sm">
+    <li><a href="#">&laquo;</a></li>
+    {% for i in curpage.page_range %}
+        {% ifequal pagenumber i %}
+            <li class="active"><a>{{ pagenumber }}</a></li>
+        {% else %}
+            <li ><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endifequal%}
+    {% endfor %}
+    <li><a href="#">&raquo;</a></li>
+</ul>
+{% endblock %}

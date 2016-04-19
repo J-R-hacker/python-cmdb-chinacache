@@ -1,0 +1,70 @@
+{% extends "headernav.html" %}
+    {% load staticfiles %}
+    {% block headerleft %}
+            <div class="container top40">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="module bottom20">
+                            <form id="seacrh">
+                                <div class="input-group">
+                                    <input type="text" name="seacrh" placeholder="" class="form-control">
+                                    <div class="input-group-btn">
+                                        <button type="sumbit" class="btn btn-primary">搜索</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+        
+                        <div class="module">
+                            <div class="list-group">
+                                <a href={% url "info" %} class="list-group-item {% block nodeinfoactive %}{% endblock %}" id="">
+                                    <h4 class="list-group-item-heading">资产信息</h4>
+                                    <p class="list-group-item-text">蓝汛CDN节点,      可从此处找到节点内部设备。后期可以有设备各项信息，静态的资产信息和动态的运维信息</p>
+                                </a>
+                                <a href="{% url "asset" %}" class="list-group-item {% block asset %}{% endblock %}" id="asset">
+                                    <h4 class="list-group-item-heading">资产管理</h4>
+                                    <p class="list-group-item-text">没有资产就没有管理，请为你的建设设计蓝图，不要前人挖坑，后人填坑。</p>
+                                </a>
+                                <a href="{% url "netool" %}" class="list-group-item {% block netool %}{% endblock %}" id="">
+                                    <h4 class="list-group-item-heading">网络工具</h4>
+                                    <p class="list-group-item-text">在这里你可以使用与网络相关的工具。无论是网络验收，装机脚本。一切尽在掌控之中。</p>
+                                </a>
+                                <a href="#" class="list-group-item" id="">
+                                    <h4 class="list-group-item-heading">更多功能</h4>
+                                    <p class="list-group-item-text">更多功能敬请期待</p>
+                                </a>
+                            </div>
+                        </div>
+        
+                        <div class="module">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item">运维值班表
+                                    <span class="badge">7</span>
+                                </a>
+                            </div>
+                        </div>
+        
+                        <div class="module panel panel-default">
+                            <div class="panel-heading">友情链接</div>
+                            <div class="panel-body tags">
+                                <a href="#" class="label ib label-info">ZIBBIX</a>
+                                <a href="#" class="label ib label-success">ZONNES</a>
+                                <a href="#" class="label ib label-warning">LOG</a>
+                                <a href="#" class="label ib label-danger">PING</a>
+                                <a href="http://oa.chinacache.com" class="label ib label-default">OA</a>
+                                <a href="http://rms.chinacache.com" class="label ib label-primary">RMS</a>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div id="mainbody" class="col-md-9">
+                        <ol class="breadcrumb">
+                            {% block mainbodynav  %}{% endblock %}
+                        </ol>
+                        {% block mainbody  %}{% endblock %}
+                    </div>
+                </div>
+             </div>
+{% endblock %}
+
+{% block jscript %}{% endblock %}

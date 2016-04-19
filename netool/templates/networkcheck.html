@@ -1,0 +1,131 @@
+{% extends "asset.html" %}
+
+{% load staticfiles %}
+
+{% block asset %}active{% endblock %}
+
+{% block design %}
+    {% ifequal hit "isok" %}
+        <div class="row">
+            <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <strong>提示！</strong> {{ nameinfo }}已成功录入.
+            </div>
+            </div>
+        </div>
+    {% endifequal %}
+    {% ifequal hit "ihave" %}
+        <div class="row">
+            <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <strong>警告！</strong> {{ nameinfo }}已在数据库中.
+            </div>
+            </div>
+        </div>
+    {% endifequal %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="module panel panel-default accordion">
+                <div class="panel-heading">
+                    <div class="accordion" id="accordion-1">
+                        <div class="accordion-group">
+                            <div><strong>节点录入</strong>
+                                <a class="pull-right"  data-parent="#nodentering" data-toggle="collapse" href="#nodentering">
+                                    <button type="button" class="btn btn-default btn-xs">
+                                        <span class="glyphicon glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-body collapse" id="nodentering" style="height: 0px;">
+                    <div class="panel-body tags">
+                        <form class="form-inline" id="demand">
+                            <div style="padding-top:10px">
+                                <label>节点名称:</label>
+                                <input  type="text" class="form-control" name="nodename" id="nodename" placeholder="名称" style="width:180px"/>
+                            </div>
+                            <div style="padding-top:10px">
+                                <label>节点区域:</label>
+                                <input  type="text" class="form-control" name="area" id="area" placeholder="区域" style="width:180px"/>
+                            </div>
+                            <div style="padding-top:10px" >
+                                <label>节点城市:</label>
+                                <input  type="text" class="form-control" name="city" id="city" placeholder="城市" style="width:180px"/>
+                            </div>
+                            <div class="" style="padding-top:10px" id="pc">
+                                <button class="am-btn am-btn-primary am-btn-sm" type="sumbit" style="padding-top:10px">提交</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="module panel panel-default accordion">
+                <div class="panel-heading">
+                    <div class="accordion" id="accordion-567295">
+                        <div class="accordion-group">
+                            <div><strong>设备录入</strong>
+                                <a class="pull-right"  data-parent="#devicentering" data-toggle="collapse" href="#devicentering">
+                                    <button type="button" class="btn btn-default btn-xs">
+                                        <span class="glyphicon glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-body collapse" id="devicentering" style="height: 0px;">
+                    <div class="panel-body tags">
+                        <form class="form-inline" id="demand">
+                            <div style="padding-top:10px">
+                                <label>所属节点:</label>
+                                <select id="belongnode" name="belongnode" style="width:180px" class="form-control">
+                                    {% for n in node %}
+                                        <option>{{ n.node_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div style="padding-top:10px">
+                                <label>设备名称:</label>
+                                <input  type="text" class="form-control" name="devicename" id="devicename" placeholder="devicename" style="width:180px"/>
+                            </div>
+                            <div style="padding-top:10px">
+                                <label>设备地址:</label>
+                                <input  type="text" class="form-control" name="deviceip" id="deviceip" placeholder="deviceip" style="width:180px"/>
+                            </div>
+                            <div style="padding-top:10px" >
+                                <label>设备型号:</label>
+                                <select id="devicetype" name="devicetype" style="width:180px" class="form-control">
+                                    {% for u in utype %}
+                                        <option>{{ u.dtype }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="" style="padding-top:10px" id="pc">
+                                <button class="am-btn am-btn-primary am-btn-sm" type="sumbit" style="padding-top:10px">提交</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block jscript %}
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+</script>
+
+{% endblock %}
